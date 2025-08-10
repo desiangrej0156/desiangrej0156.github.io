@@ -1,0 +1,370 @@
+<!--
+  Learning English Literature & Language
+  Single-file website (index.html)
+
+  DEPLOYMENT (GitHub Pages):
+  1. Create a new public GitHub repo (e.g., `english-learning-site`).
+  2. Add this file as `index.html` in the repository root and commit.
+  3. Push to GitHub. In the repository, go to Settings → Pages (or Code and automation → Pages)
+     and set the source to the `main` branch (root). Save — your site will be published at
+     `https://<your-username>.github.io/<repo-name>/` usually within a minute.
+
+  Notes: This single HTML file includes CSS and JS. Customize content sections, add more lessons
+  as separate HTML files or convert to a static-site generator later.
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Learn English — Literature & Language</title>
+  <meta name="description" content="Free resources to learn English literature and language: lessons, quizzes, reading lists and study aids.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --accent:#7c3aed; --muted:#94a3b8; --glass: rgba(255,255,255,0.03);
+      --radius:14px; --maxw:1100px; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071022 0%,var(--bg) 100%);color:#e6eef8}
+    a{color:var(--accent);text-decoration:none}
+    .container{max-width:var(--maxw);margin:0 auto;padding:28px}
+
+    header{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{height:44px;width:44px;background:linear-gradient(135deg,var(--accent),#06b6d4);display:grid;place-items:center;border-radius:10px;font-weight:800;color:#fff}
+    nav{display:flex;gap:16px;align-items:center}
+    nav a{font-weight:600;color:var(--muted)}
+    .btn{background:var(--accent);padding:10px 14px;border-radius:10px;color:#fff;font-weight:700}
+
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;padding:36px 0}
+    .hero h1{font-size:36px;margin:0 0 10px;line-height:1.05}
+    .hero p{color:var(--muted);margin:0 0 18px}
+    .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+
+    .search{display:flex;gap:8px;margin-top:12px}
+    .search input{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    .search button{padding:10px 12px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--accent),#06b6d4);color:white;font-weight:700}
+
+    .lesson-list{display:grid;gap:12px}
+    .lesson{display:flex;justify-content:space-between;gap:12px;padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent)}
+    .lesson h3{margin:0;font-size:16px}
+    .muted{color:var(--muted);font-size:13px}
+
+    .side-card{position:sticky;top:24px;padding:18px;border-radius:12px;background:var(--glass);backdrop-filter:blur(6px)}
+
+    section{padding:30px 0}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    footer{padding:28px 0;border-top:1px dashed rgba(255,255,255,0.03);margin-top:30px;color:var(--muted)}
+
+    /* responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:640px){
+      .grid-3{grid-template-columns:1fr}
+      nav{display:none}
+      header{flex-direction:column;align-items:flex-start;gap:10px}
+    }
+
+    /* small util */
+    .pill{background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:999px;font-weight:700}
+    .chip{padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.02)}
+    .quiz-result{margin-top:12px;padding:10px;border-radius:8px;background:rgba(0,0,0,0.25)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">EL</div>
+        <div>
+          <div style="font-weight:800">Learn English</div>
+          <div class="muted" style="font-size:12px">Literature • Language • Exams • Quizzes</div>
+        </div>
+      </div>
+
+      <nav>
+        <a href="#lessons">Lessons</a>
+        <a href="#reading">Reading List</a>
+        <a href="#quizzes">Quizzes</a>
+        <a href="#resources">Resources</a>
+        <a class="btn" href="#start">Get Started</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <h1>Master English — literature & language, step by step</h1>
+          <p>Free structured lessons, curated reading lists, bite-sized quizzes and study tools to help learners from beginner to advanced.</p>
+          <div class="cards">
+            <div class="card">
+              <h3>Structured Courses</h3>
+              <p class="muted">From grammar foundations to literary criticism: clear modules, objectives & practice.</p>
+            </div>
+            <div class="card">
+              <h3>Active Practice</h3>
+              <p class="muted">Short quizzes, writing prompts, and weekly reading challenges to build skills.</p>
+            </div>
+          </div>
+
+          <div class="search" style="margin-top:18px">
+            <input id="searchInput" placeholder="Search lessons, authors, poems, plays...">
+            <button onclick="doSearch()">Search</button>
+          </div>
+
+        </div>
+
+        <aside class="side-card">
+          <h3 style="margin:0 0 8px">Start learning</h3>
+          <p class="muted">Recommended path for new learners</p>
+          <ol class="muted" style="padding-left:18px;margin-top:10px">
+            <li>Grammar essentials</li>
+            <li>Reading short poems & prose</li>
+            <li>Intro to literary terms</li>
+            <li>Practice quizzes & writing</li>
+          </ol>
+
+          <div style="margin-top:12px;display:flex;gap:8px">
+            <a class="pill" href="#lessons">View lessons</a>
+            <a class="chip" href="#quizzes">Take a quiz</a>
+          </div>
+        </aside>
+      </section>
+
+      <section id="lessons">
+        <div style="display:flex;gap:22px;align-items:flex-start">
+          <div style="flex:1">
+            <h2>Lessons</h2>
+            <p class="muted">Short, focused lessons. Each lesson contains a quick summary, examples, and exercises.</p>
+
+            <div class="lesson-list">
+              <div class="lesson">
+                <div>
+                  <h3>Grammar — Parts of Speech</h3>
+                  <div class="muted">Understand nouns, verbs, adjectives, adverbs with examples.</div>
+                </div>
+                <div class="muted">10m • Beginner</div>
+              </div>
+
+              <div class="lesson">
+                <div>
+                  <h3>Poetry — Meter & Rhyme</h3>
+                  <div class="muted">Basics of meter, common rhyme schemes, scanning a line of poetry.</div>
+                </div>
+                <div class="muted">15m • Intermediate</div>
+              </div>
+
+              <div class="lesson">
+                <div>
+                  <h3>Shakespeare — Sonnet 18</h3>
+                  <div class="muted">Close reading, themes, language, and context.</div>
+                </div>
+                <div class="muted">30m • Advanced</div>
+              </div>
+
+              <div class="lesson">
+                <div>
+                  <h3>Critical Terms — Formalism</h3>
+                  <div class="muted">Key critics and techniques: Jakobson, Shklovsky, close reading tools.</div>
+                </div>
+                <div class="muted">20m • Intermediate</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="width:340px">
+            <div class="card" style="margin-bottom:12px">
+              <h3 style="margin-bottom:6px">Upcoming events</h3>
+              <div class="muted">Weekly reading circle — every Saturday</div>
+            </div>
+
+            <div class="card">
+              <h3 style="margin-bottom:6px">Progress tracker</h3>
+              <p class="muted">Track lessons completed and quiz scores. (Local storage saves progress on this browser.)</p>
+              <div style="margin-top:10px;display:flex;gap:8px">
+                <button class="btn" onclick="startDemo()">Start demo</button>
+                <button class="chip" onclick="resetProgress()">Reset</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="reading">
+        <h2>Recommended reading</h2>
+        <p class="muted">Short, approachable selections grouped by level and theme.</p>
+
+        <div class="grid-3" style="margin-top:12px">
+          <div class="card">
+            <h3>Beginner</h3>
+            <ul class="muted">
+              <li>Short stories: O. Henry, Saki</li>
+              <li>Poems: William Wordsworth — "Daffodils"</li>
+              <li>Grammar readers & exercises</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Intermediate</h3>
+            <ul class="muted">
+              <li>Jane Austen — selected chapters</li>
+              <li>Poetry: Keats, Shelley</li>
+              <li>Intro literary criticism</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Advanced</h3>
+            <ul class="muted">
+              <li>Shakespeare — selected plays</li>
+              <li>Milton — Paradise Lost (selections)</li>
+              <li>Theory: Formalism, Structuralism</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="quizzes">
+        <h2>Quizzes & Practice</h2>
+        <p class="muted">Try short quizzes to check understanding. Scores save locally.</p>
+
+        <div style="display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:start;margin-top:12px">
+          <div class="card">
+            <h3>Quick grammar quiz</h3>
+            <div id="quizArea">
+              <!-- quiz injected by JS -->
+            </div>
+            <div class="quiz-result" id="quizResult" style="display:none"></div>
+          </div>
+
+          <div class="side-card">
+            <h4>How quizzes work</h4>
+            <p class="muted">Select answers; click Submit. Scores stored in your browser.
+            Use them to track weak areas and revisit lessons.</p>
+            <div style="margin-top:10px"><button class="btn" onclick="loadQuiz()">Load quiz</button></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="resources">
+        <h2>Free resources</h2>
+        <p class="muted">Downloadable cheat-sheets, citation guides, exam tips and practice papers.</p>
+
+        <div class="grid-3" style="margin-top:12px">
+          <div class="card">
+            <h3>Cheat-sheets</h3>
+            <p class="muted">Grammar summary, figures of speech, poetic devices (PDF downloads coming soon).</p>
+          </div>
+          <div class="card">
+            <h3>Study planners</h3>
+            <p class="muted">Weekly and monthly study templates you can copy and use.</p>
+          </div>
+          <div class="card">
+            <h3>Exam tips</h3>
+            <p class="muted">How to approach essay questions and close-reading tasks.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <h2>Contact & contribute</h2>
+        <p class="muted">Want to contribute lessons, suggest a reading, or report an error? Email: <a href="mailto:hello@example.com">hello@example.com</a></p>
+      </section>
+
+    </main>
+
+    <footer>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div>
+          <strong>Learn English</strong>
+          <div class="muted" style="font-size:13px">Free learning resources — built for students and teachers.</div>
+        </div>
+        <div class="muted">© <span id="year"></span> Learn English • Hosted on GitHub Pages</div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // small utility & demo quiz + progress
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function doSearch(){
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      if(!q){alert('Type a search term such as "sonnet" or "grammar"');return}
+      const matches = [];
+      // simple client-side search (demo)
+      const data = [
+        {title:'Parts of Speech',id:'parts'},
+        {title:'Poetry — Meter & Rhyme',id:'meter'},
+        {title:'Shakespeare — Sonnet 18',id:'sonnet18'},
+        {title:'Formalism',id:'formalism'}
+      ];
+      data.forEach(d=>{if(d.title.toLowerCase().includes(q))matches.push(d)});
+      if(matches.length) alert('Found: ' + matches.map(m=>m.title).join(', ')); else alert('No matches in demo. Try "poetry" or "Shakespeare"');
+    }
+
+    // Demo progress using localStorage
+    function startDemo(){
+      localStorage.setItem('el_progress', JSON.stringify({lessons:2,quizzes:0}));
+      alert('Demo progress saved in this browser.\nOpen quizzes to try a short quiz.');
+    }
+    function resetProgress(){localStorage.removeItem('el_progress');alert('Progress reset.');}
+
+    // QUIZ DATA (small demo)
+    const QUIZ = [
+      {q:'Which is an adjective?',opts:['Quick','Run','Happiness','Sing'],a:0},
+      {q:'"I wandered lonely as a cloud" is by which poet?',opts:['Keats','Wordsworth','Tennyson','Shelley'],a:1},
+      {q:'A sonnet traditionally has how many lines?',opts:['12','14','16','10'],a:1}
+    ];
+
+    function loadQuiz(){
+      const area = document.getElementById('quizArea');
+      area.innerHTML = '';
+      QUIZ.forEach((item,i)=>{
+        const qdiv = document.createElement('div');
+        qdiv.style.marginBottom='12px';
+        qdiv.innerHTML = `<strong>${i+1}. ${item.q}</strong>`;
+        item.opts.forEach((opt,oi)=>{
+          const id = `q${i}_o${oi}`;
+          qdiv.innerHTML += `<div style="margin-top:6px"><label><input type='radio' name='q${i}' value='${oi}'> ${opt}</label></div>`;
+        });
+        area.appendChild(qdiv);
+      });
+      const submit = document.createElement('button');
+      submit.textContent = 'Submit'; submit.className='btn'; submit.onclick = submitQuiz;
+      area.appendChild(submit);
+    }
+
+    function submitQuiz(){
+      let score=0; const total=QUIZ.length;
+      for(let i=0;i<total;i++){
+        const els = document.getElementsByName('q'+i);
+        let chosen = -1;
+        for(const e of els) if(e.checked) chosen = Number(e.value);
+        if(chosen===QUIZ[i].a) score++;
+      }
+      const res = document.getElementById('quizResult');
+      res.style.display='block';
+      res.innerHTML = `Score: <strong>${score} / ${total}</strong> (${Math.round((score/total)*100)}%).`;
+      // save to localStorage history
+      const hist = JSON.parse(localStorage.getItem('el_quiz_hist')||'[]');
+      hist.push({when:new Date().toISOString(),score, total});
+      localStorage.setItem('el_quiz_hist', JSON.stringify(hist));
+    }
+
+    // small UX: auto-load quiz if user visits #quizzes
+    if(location.hash === '#quizzes') loadQuiz();
+
+    // Accessibility: keyboard shortcut 'q' to jump to quizzes
+    document.addEventListener('keydown', (e)=>{ if(e.key==='q') location.hash='#quizzes'; });
+  </script>
+</body>
+</html>
