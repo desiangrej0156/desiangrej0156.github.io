@@ -3,9 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Literature & Language Hub</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>LitLang Academy - Master English Literature & Language</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary: #667eea;
+            --primary-dark: #4c63d2;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --text-light: #f8fafc;
+            --text-dark: #1e293b;
+            --bg-light: #ffffff;
+            --bg-dark: #0f172a;
+            --card-light: #ffffff;
+            --card-dark: #1e293b;
+            --border-light: #e2e8f0;
+            --border-dark: #334155;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+        }
+
+        [data-theme="dark"] {
+            --text-color: var(--text-light);
+            --bg-color: var(--bg-dark);
+            --card-color: var(--card-dark);
+            --border-color: var(--border-dark);
+        }
+
+        [data-theme="light"] {
+            --text-color: var(--text-dark);
+            --bg-color: var(--bg-light);
+            --card-color: var(--card-light);
+            --border-color: var(--border-light);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,49 +45,73 @@
         }
 
         body {
-            font-family: 'Georgia', serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
-            color: #2c3e50;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            color: var(--text-color);
+            background: var(--bg-color);
+            transition: all 0.3s ease;
+            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        /* Floating SVG Background */
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
         }
 
-        header {
+        .shape {
+            position: absolute;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .shape:nth-child(2) { top: 20%; right: 10%; animation-delay: 2s; }
+        .shape:nth-child(3) { bottom: 20%; left: 20%; animation-delay: 4s; }
+        .shape:nth-child(4) { bottom: 10%; right: 20%; animation-delay: 1s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
             z-index: 1000;
+            padding: 1rem 0;
             transition: all 0.3s ease;
         }
 
-        nav {
+        [data-theme="dark"] nav {
+            background: rgba(15, 23, 42, 0.95);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
+            padding: 0 2rem;
         }
 
         .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #764ba2;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo i {
-            color: #667eea;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .nav-links {
@@ -65,107 +121,182 @@
         }
 
         .nav-links a {
+            color: var(--text-color);
             text-decoration: none;
-            color: #2c3e50;
             font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
+            transition: color 0.3s ease;
+            position: relative;
         }
 
         .nav-links a:hover {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            transform: translateY(-2px);
+            color: var(--primary);
         }
 
-        .mobile-menu {
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border-color);
+            color: var(--text-color);
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .mobile-menu-btn {
             display: none;
-            flex-direction: column;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-color);
             cursor: pointer;
         }
 
-        .mobile-menu span {
-            width: 25px;
-            height: 3px;
-            background: #2c3e50;
-            margin: 3px 0;
-            transition: 0.3s;
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: var(--card-color);
+            z-index: 1001;
+            padding: 2rem;
+            transition: right 0.3s ease;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
         }
 
-        main {
-            margin-top: 80px;
+        .mobile-menu.active {
+            right: 0;
         }
 
+        .mobile-menu-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+            margin-bottom: 2rem;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+        }
+
+        .mobile-nav-links li {
+            margin-bottom: 1rem;
+        }
+
+        .mobile-nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1.2rem;
+            display: block;
+            padding: 0.5rem 0;
+        }
+
+        /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9));
-            color: white;
-            padding: 6rem 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
             position: relative;
             overflow: hidden;
         }
 
-        .hero::before {
-            content: '';
+        .parallax-bg {
             position: absolute;
-            width: 200%;
-            height: 200%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%23ffffff" stop-opacity="0.1"/><stop offset="100%" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"/><circle cx="600" cy="400" r="150" fill="url(%23a)"/><circle cx="800" cy="100" r="80" fill="url(%23a)"/></svg>');
-            animation: float 20s ease-in-out infinite;
-            top: -50%;
-            left: -50%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%23667eea" stop-opacity="0.1"/><stop offset="100%" stop-color="%23764ba2" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"/><circle cx="800" cy="300" r="150" fill="url(%23a)"/><circle cx="300" cy="700" r="120" fill="url(%23a)"/></svg>');
+            animation: parallaxFloat 10s ease-in-out infinite;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(30px, -30px) rotate(120deg); }
-            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        @keyframes parallaxFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-30px); }
         }
 
         .hero-content {
+            max-width: 800px;
+            padding: 2rem;
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
         .hero h1 {
             font-size: 3.5rem;
+            font-weight: 700;
             margin-bottom: 1rem;
             opacity: 0;
-            animation: fadeInUp 1s ease forwards;
+            animation: slideInUp 1s ease 0.5s forwards;
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 2rem;
             opacity: 0;
-            animation: fadeInUp 1s ease 0.3s forwards;
+            animation: slideInUp 1s ease 0.8s forwards;
         }
 
         .cta-button {
             display: inline-block;
-            background: white;
-            color: #764ba2;
             padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
             text-decoration: none;
             border-radius: 50px;
-            font-weight: bold;
+            font-weight: 600;
             transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
             opacity: 0;
-            animation: fadeInUp 1s ease 0.6s forwards;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: slideInUp 1s ease 1.1s forwards;
         }
 
         .cta-button:hover {
+            background: rgba(255, 255, 255, 0.3);
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            background: #f8f9fa;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
 
-        @keyframes fadeInUp {
+        /* Animations */
+        @keyframes slideInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(50px);
             }
             to {
                 opacity: 1;
@@ -173,639 +304,678 @@
             }
         }
 
-        .section {
-            padding: 4rem 0;
-            background: white;
-            margin: 2rem 0;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
-        .section h2 {
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
             text-align: center;
             font-size: 2.5rem;
+            font-weight: 700;
             margin-bottom: 3rem;
-            color: #764ba2;
-            position: relative;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .section h2::after {
-            content: '';
-            position: absolute;
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-
+        /* Features Grid */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
 
         .feature-card {
-            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            background: var(--card-color);
             padding: 2rem;
-            border-radius: 15px;
+            border-radius: 20px;
             text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            border: 1px solid rgba(118, 75, 162, 0.1);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(118, 75, 162, 0.2);
-            background: linear-gradient(145deg, #ffffff, #f8f9fa);
-        }
-
-        .feature-card i {
-            font-size: 3rem;
-            color: #667eea;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #2c3e50;
-        }
-
-        .topics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .topic-item {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            cursor: pointer;
+            border: 1px solid var(--border-color);
             position: relative;
             overflow: hidden;
         }
 
-        .topic-item::before {
+        .feature-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
         }
 
-        .topic-item:hover::before {
+        .feature-card:hover::before {
             left: 100%;
         }
 
-        .topic-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
 
-        .topic-item h4 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
         }
 
-        .interactive-section {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
         }
 
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Quiz Section */
         .quiz-container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .quiz-question {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        .quiz-options {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .quiz-option {
-            padding: 1rem;
-            background: #f8f9fa;
-            border: 2px solid transparent;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .quiz-option:hover {
-            border-color: #667eea;
-            background: #e3f2fd;
-        }
-
-        .quiz-option.selected {
-            border-color: #764ba2;
-            background: #f3e5f5;
-        }
-
-        .quiz-button {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .quiz-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .quiz-result {
-            margin-top: 1rem;
-            padding: 1rem;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .correct {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .incorrect {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .resources-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .resource-card {
-            background: white;
-            border: 1px solid #e9ecef;
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .resource-card:hover {
-            transform: translateY(-5px);
+            background: var(--card-color);
+            border-radius: 20px;
+            padding: 3rem;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
         }
 
-        .resource-header {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            padding: 1rem;
+        .quiz-progress {
+            width: 100%;
+            height: 10px;
+            background: var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .quiz-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .question {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
             text-align: center;
         }
 
-        .resource-content {
-            padding: 1.5rem;
-        }
-
-        .resource-content ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .resource-content li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #f1f3f4;
-            position: relative;
-            padding-left: 1.5rem;
-        }
-
-        .resource-content li::before {
-            content: '📖';
-            position: absolute;
-            left: 0;
-            top: 0.5rem;
-        }
-
-        footer {
-            background: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 2rem;
-        }
-
-        .footer-content {
+        .answers {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            gap: 1rem;
             margin-bottom: 2rem;
         }
 
-        .footer-section h3 {
-            margin-bottom: 1rem;
-            color: #667eea;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section a {
-            color: #ecf0f1;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: #667eea;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .social-links a {
-            color: white;
-            font-size: 1.5rem;
+        .answer {
+            background: var(--card-color);
+            border: 2px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
             transition: all 0.3s ease;
+            text-align: left;
         }
 
-        .social-links a:hover {
-            color: #667eea;
+        .answer:hover {
+            border-color: var(--primary);
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .answer.selected {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            transform: scale(1.02);
+        }
+
+        .answer.correct {
+            border-color: var(--success);
+            background: var(--success);
+            color: white;
+            animation: correctAnswer 0.5s ease;
+        }
+
+        .answer.incorrect {
+            border-color: var(--error);
+            background: var(--error);
+            color: white;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes correctAnswer {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1.02); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .quiz-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .quiz-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .quiz-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .quiz-result {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .quiz-result.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Confetti Animation */
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            animation: confetti-fall 3s linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
             transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
         }
 
+        /* Responsive Design */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
             }
 
-            .mobile-menu {
-                display: flex;
+            .mobile-menu-btn {
+                display: block;
             }
 
             .hero h1 {
                 font-size: 2.5rem;
             }
 
-            .features-grid,
-            .topics-grid,
-            .resources-grid {
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .features-grid {
                 grid-template-columns: 1fr;
             }
 
-            .section h2 {
-                font-size: 2rem;
+            .quiz-container {
+                padding: 2rem 1rem;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            section {
+                padding: 3rem 1rem;
             }
         }
 
-        .fade-in {
+        /* Intersection Observer Classes */
+        .fade-in-up {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
         }
 
-        .fade-in.visible {
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+
+        .zoom-in {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.8s ease;
+        }
+
+        .animate {
             opacity: 1;
-            transform: translateY(0);
+            transform: translate(0) scale(1);
         }
     </style>
 </head>
-<body>
-    <header>
-        <nav class="container">
-            <a href="#" class="logo">
-                <img src="C:\Users\dell\Pictures\Desi_Angrej.jpg" alt="Image" width="50" height="50">
-                Desi Angrej
-            </a>
+<body data-theme="light">
+    <!-- Floating SVG Background -->
+    <div class="floating-shapes">
+        <svg class="shape" width="100" height="100" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="30" fill="currentColor" opacity="0.1"/>
+        </svg>
+        <svg class="shape" width="120" height="120" viewBox="0 0 120 120">
+            <polygon points="60,10 90,90 30,90" fill="currentColor" opacity="0.1"/>
+        </svg>
+        <svg class="shape" width="80" height="80" viewBox="0 0 80 80">
+            <rect x="20" y="20" width="40" height="40" rx="8" fill="currentColor" opacity="0.1"/>
+        </svg>
+        <svg class="shape" width="110" height="110" viewBox="0 0 110 110">
+            <path d="M55,10 L85,45 L85,85 L25,85 L25,45 Z" fill="currentColor" opacity="0.1"/>
+        </svg>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Desi Angrej</div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
                 <li><a href="#literature">Literature</a></li>
                 <li><a href="#language">Language</a></li>
-                <li><a href="#interactive">Practice</a></li>
-                <li><a href="#resources">Resources</a></li>
+                <li><a href="#quiz">Quiz</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
-            <div class="mobile-menu">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="nav-controls">
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
-        </nav>
-    </header>
-
-    <main>
-        <section id="home" class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h1>Master English Literature & Language</h1>
-                    <p>Explore the rich world of English literature and enhance your language skills with our comprehensive learning platform</p>
-                    <a href="#literature" class="cta-button">Start Learning</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="features" class="section">
-            <div class="container">
-                <h2>Why Choose Our Platform?</h2>
-                <div class="features-grid">
-                    <div class="feature-card fade-in">
-                        <i class="fas fa-book"></i>
-                        <h3>Comprehensive Content</h3>
-                        <p>From Beowulf to Virginia Woolf, explore centuries of English literature with detailed analysis and insights.</p>
-                    </div>
-                    <div class="feature-card fade-in">
-                        <i class="fas fa-language"></i>
-                        <h3>Language Mastery</h3>
-                        <p>Improve your grammar, vocabulary, and writing skills with interactive exercises and practical examples.</p>
-                    </div>
-                    <div class="feature-card fade-in">
-                        <i class="fas fa-users"></i>
-                        <h3>Interactive Learning</h3>
-                        <p>Engage with quizzes, discussions, and activities designed to make learning enjoyable and effective.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="literature" class="section">
-            <div class="container">
-                <h2>English Literature</h2>
-                <div class="topics-grid">
-                    <div class="topic-item fade-in">
-                        <h4>Shakespeare's Works</h4>
-                        <p>Dive into the timeless plays and sonnets of William Shakespeare</p>
-                    </div>
-                    <div class="topic-item fade-in">
-                        <h4>Victorian Literature</h4>
-                        <p>Explore the rich literary tradition of the Victorian era</p>
-                    </div>
-                    <div class="topic-item fade-in">
-                        <h4>Modern Poetry</h4>
-                        <p>Understand contemporary poetic forms and themes</p>
-                    </div>
-                    <div class="topic-item fade-in">
-                        <h4>Gothic Fiction</h4>
-                        <p>Discover the dark and mysterious world of Gothic literature</p>
-                    </div>
-                    <div class="topic-item fade-in">
-                        <h4>Romantic Movement</h4>
-                        <p>Learn about the Romantic poets and their revolutionary ideas</p>
-                    </div>
-                    <div class="topic-item fade-in">
-                        <h4>Contemporary Fiction</h4>
-                        <p>Analyze modern and postmodern literary works</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="language" class="section">
-            <div class="container">
-                <h2>English Language Skills</h2>
-                <div class="topics-grid">
-                    <div class="topic-item fade-in">
-                        <h4>Grammar Fundamentals</h4>
-                        <p>Master the building blocks of English grammar</p>
-                    </div>
-                    <div class="topic-item fade-in">
-                        <h4>Vocabulary Building</h4>
-                        <p>Expand your word power with systematic vocabulary development</p>
-                    </div>
-                    <div class="topic-item fade-in">
-                        <h4>Writing Techniques</h4>
-                        <p>Learn to write clearly, persuasively, and creatively</p>
-                    </div>
-                    <div class="topic-item fade-in">
-                        <h4>Reading Comprehension</h4>
-                        <p>Develop critical reading and analysis skills</p>
-                    </div>
-                    <div class="topic-item fade-in">
-                        <h4>Pronunciation Guide</h4>
-                        <p>Perfect your English pronunciation and accent</p>
-                    </div>
-                    <div class="topic-item fade-in">
-                        <h4>Business English</h4>
-                        <p>Master professional communication skills</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="interactive" class="section interactive-section">
-            <div class="container">
-                <h2>Interactive Quiz</h2>
-                <div class="quiz-container">
-                    <div id="quiz">
-                        <div class="quiz-question" id="question">
-                            Who wrote the famous novel "Pride and Prejudice"?
-                        </div>
-                        <div class="quiz-options">
-                            <div class="quiz-option" data-answer="0">Charlotte Brontë</div>
-                            <div class="quiz-option" data-answer="1">Jane Austen</div>
-                            <div class="quiz-option" data-answer="2">Emily Dickinson</div>
-                            <div class="quiz-option" data-answer="3">Virginia Woolf</div>
-                        </div>
-                        <button class="quiz-button" onclick="checkAnswer()">Submit Answer</button>
-                        <div id="result" class="quiz-result" style="display: none;"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="resources" class="section">
-            <div class="container">
-                <h2>Learning Resources</h2>
-                <div class="resources-grid">
-                    <div class="resource-card fade-in">
-                        <div class="resource-header">
-                            <h3>Literature Guides</h3>
-                        </div>
-                        <div class="resource-content">
-                            <ul>
-                                <li>Character Analysis Templates</li>
-                                <li>Plot Structure Guides</li>
-                                <li>Theme Exploration Worksheets</li>
-                                <li>Historical Context Resources</li>
-                                <li>Literary Device Examples</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="resource-card fade-in">
-                        <div class="resource-header">
-                            <h3>Language Tools</h3>
-                        </div>
-                        <div class="resource-content">
-                            <ul>
-                                <li>Grammar Reference Charts</li>
-                                <li>Vocabulary Flash Cards</li>
-                                <li>Writing Prompt Collections</li>
-                                <li>Pronunciation Audio Guides</li>
-                                <li>Style and Tone Examples</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="resource-card fade-in">
-                        <div class="resource-header">
-                            <h3>Practice Materials</h3>
-                        </div>
-                        <div class="resource-content">
-                            <ul>
-                                <li>Interactive Quizzes</li>
-                                <li>Writing Exercises</li>
-                                <li>Reading Comprehension Tests</li>
-                                <li>Discussion Questions</li>
-                                <li>Essay Writing Guides</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#literature">Literature</a></li>
-                        <li><a href="#language">Language</a></li>
-                        <li><a href="#interactive">Practice</a></li>
-                        <li><a href="#resources">Resources</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Study Areas</h3>
-                    <ul>
-                        <li><a href="#">Shakespeare</a></li>
-                        <li><a href="#">Grammar</a></li>
-                        <li><a href="#">Writing</a></li>
-                        <li><a href="#">Poetry</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact</h3>
-                    <p>Email: iamsuryaprateek29@gmail.com</p>
-                    <p>Join our learning community</p>
-                </div>
-            </div>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-            </div>
-            <p>&copy; 2025 Desi Angrej. All rights reserved.</p>
         </div>
-    </footer>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <button class="mobile-menu-close" onclick="toggleMobileMenu()">
+            <i class="fas fa-times"></i>
+        </button>
+        <ul class="mobile-nav-links">
+            <li><a href="#home" onclick="toggleMobileMenu()">Home</a></li>
+            <li><a href="#features" onclick="toggleMobileMenu()">Features</a></li>
+            <li><a href="#literature" onclick="toggleMobileMenu()">Literature</a></li>
+            <li><a href="#language" onclick="toggleMobileMenu()">Language</a></li>
+            <li><a href="#quiz" onclick="toggleMobileMenu()">Quiz</a></li>
+            <li><a href="#about" onclick="toggleMobileMenu()">About</a></li>
+            <li><a href="#contact" onclick="toggleMobileMenu()">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="parallax-bg"></div>
+        <div class="hero-content">
+            <h1>Master English Literature & Language</h1>
+            <p>Embark on a transformative journey through the world of English literature and language with interactive lessons, engaging quizzes, and expert guidance.</p>
+            <a href="#features" class="cta-button">Start Learning Today</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <div class="container">
+            <h2 class="section-title fade-in-up">Why Choose Desi Angrej?</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in-left">
+                    <div class="feature-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>Comprehensive Content</h3>
+                    <p>From 'Wulf' ('Beowulf') to 'Woolf' (Virginia Woolf), explore centuries of English literature with our detailed analysis and insights.</p>
+                </div>
+                <div class="feature-card zoom-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3>Language Mastery</h3>
+                    <p>Master grammar, vocabulary, and writing skills through engaging exercises, real-world applications, and personalized feedback systems.</p>
+                </div>
+                <div class="feature-card fade-in-right">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Adaptive Learning</h3>
+                    <p>Experience AI-powered learning that adapts to your pace and style, ensuring optimal retention and understanding of complex concepts.</p>
+                </div>
+                <div class="feature-card fade-in-left">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Interactive Learning</h3>
+                    <p>Engage with interactive analysis tools, quizzes, discussions, and activities designed to make learning enjoyable and effective.</p>
+                </div>
+                <div class="feature-card zoom-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3>Certified Progress</h3>
+                    <p>Track your progress with detailed analytics and earn certificates upon completing courses and achieving learning milestones.</p>
+                </div>
+                <div class="feature-card fade-in-right">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Learn Anywhere</h3>
+                    <p>Access your courses on any device, anywhere, anytime. Our responsive platform ensures seamless learning across all your devices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section id="quiz">
+        <div class="container">
+            <h2 class="section-title fade-in-up">Test Your Knowledge</h2>
+            <div class="quiz-container zoom-in">
+                <div class="quiz-progress">
+                    <div class="quiz-progress-bar"></div>
+                </div>
+                <div id="quiz-content">
+                    <div class="question" id="question-text">
+                        Welcome to the English Literature Quiz! Click "Start Quiz" to begin your journey.
+                    </div>
+                    <div class="answers" id="answers-container" style="display: none;">
+                        <!-- Answers will be populated by JavaScript -->
+                    </div>
+                    <button class="quiz-btn" id="quiz-btn" onclick="startQuiz()">Start Quiz</button>
+                </div>
+                <div class="quiz-result" id="quiz-result">
+                    <!-- Results will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- English Literature Section -->
+    <section id="literature">
+        <div class="container">
+            <h2 class="section-title fade-in-up">English Literature</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in-left">
+                    <div class="feature-icon">
+                        <i class="fas fa-theater-masks"></i>
+                    </div>
+                    <h3>Shakespeare's Works</h3>
+                    <p>Dive into the timeless plays and sonnets of William Shakespeare. Explore the depth of human emotion and brilliant wordplay that has captivated audiences for centuries.</p>
+                </div>
+                <div class="feature-card zoom-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>Victorian Literature</h3>
+                    <p>Explore the rich literary tradition of the Victorian era, from Dickens to the Brontë sisters, and understand the social context that shaped these masterpieces.</p>
+                </div>
+                <div class="feature-card fade-in-right">
+                    <div class="feature-icon">
+                        <i class="fas fa-feather-alt"></i>
+                    </div>
+                    <h3>Modern Poetry</h3>
+                    <p>Understand contemporary poetic forms and themes, from T.S. Eliot to Maya Angelou, and discover how poetry continues to evolve and inspire.</p>
+                </div>
+                <div class="feature-card fade-in-left">
+                    <div class="feature-icon">
+                        <i class="fas fa-ghost"></i>
+                    </div>
+                    <h3>Gothic Fiction</h3>
+                    <p>Discover the dark and mysterious world of Gothic literature, from Mary Shelley's Frankenstein to Edgar Allan Poe's haunting tales of suspense.</p>
+                </div>
+                <div class="feature-card zoom-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Romantic Movement</h3>
+                    <p>Learn about the Romantic poets and their revolutionary ideas that celebrated nature, emotion, and individual expression in groundbreaking ways.</p>
+                </div>
+                <div class="feature-card fade-in-right">
+                    <div class="feature-icon">
+                        <i class="fas fa-book-reader"></i>
+                    </div>
+                    <h3>Contemporary Fiction</h3>
+                    <p>Analyze modern and postmodern literary works that challenge conventions and explore contemporary themes in innovative narrative styles.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- English Language Skills Section -->
+    <section id="language">
+        <div class="container">
+            <h2 class="section-title fade-in-up">English Language Skills</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in-left">
+                    <div class="feature-icon">
+                        <i class="fas fa-spell-check"></i>
+                    </div>
+                    <h3>Grammar Fundamentals</h3>
+                    <p>Master the building blocks of English grammar with comprehensive lessons covering syntax, sentence structure, and grammatical rules essential for clear communication.</p>
+                </div>
+                <div class="feature-card zoom-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>Vocabulary Building</h3>
+                    <p>Expand your word power with systematic vocabulary development through etymology, context clues, and advanced word usage techniques.</p>
+                </div>
+                <div class="feature-card fade-in-right">
+                    <div class="feature-icon">
+                        <i class="fas fa-pen-fancy"></i>
+                    </div>
+                    <h3>Writing Techniques</h3>
+                    <p>Learn to write clearly, persuasively, and creatively across various formats from academic essays to creative fiction and professional communication.</p>
+                </div>
+                <div class="feature-card fade-in-left">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Reading Comprehension</h3>
+                    <p>Develop critical reading and analysis skills to understand complex texts, identify themes, and extract deeper meanings from literature.</p>
+                </div>
+                <div class="feature-card zoom-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <h3>Pronunciation Guide</h3>
+                    <p>Perfect your English pronunciation and accent with phonetic guides, audio examples, and speech pattern recognition exercises.</p>
+                </div>
+                <div class="feature-card fade-in-right">
+                    <div class="feature-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Business English</h3>
+                    <p>Master professional communication skills including business writing, presentation techniques, and formal correspondence for career success.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title fade-in-up">About Desi Angrej</h2>
+            <div class="feature-card fade-in-up" style="max-width: 800px; margin: 0 auto;">
+                <div class="feature-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>Excellence in English Education</h3>
+                <p>At Desi Angrej, we believe that mastering English literature and language opens doors to endless possibilities. Our comprehensive platform combines traditional literary wisdom with modern learning technologies to create an unparalleled educational experience. Whether you're a student, educator, or lifelong learner, our carefully crafted curriculum will guide you through the rich tapestry of English literature while strengthening your language skills.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title fade-in-up">Get in Touch</h2>
+            <div style="text-align: center;">
+                <div class="feature-card fade-in-up" style="max-width: 600px; margin: 0 auto;">
+                    <div class="feature-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Ready to Start Your Journey?</h3>
+                    <p>Contact us today to learn more about our courses, get personalized recommendations, or join our community of passionate English literature and language learners.</p>
+                    <div style="margin-top: 2rem;">
+                        <a href="mailto:iamsuryaprateek29@gmail.com" class="cta-button" style="margin-right: 1rem;">Email Us</a>
+                        <a href="#quiz" class="cta-button">Take a Quiz</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Confetti Container -->
+    <div class="confetti" id="confetti"></div>
 
     <script>
-        // Quiz functionality
-        const quizData = [
-            {
-                question: "Who wrote the famous novel 'Pride and Prejudice'?",
-                options: ["Charlotte Brontë", "Jane Austen", "Emily Dickinson", "Virginia Woolf"],
-                correct: 1
-            },
-            {
-                question: "What is the main theme of Shakespeare's 'Hamlet'?",
-                options: ["Love and Romance", "Revenge and Madness", "War and Peace", "Nature and Society"],
-                correct: 1
-            },
-            {
-                question: "Which literary device involves giving human characteristics to non-human things?",
-                options: ["Metaphor", "Simile", "Personification", "Alliteration"],
-                correct: 2
-            },
-            {
-                question: "What tense is used in the sentence: 'I have been studying English literature'?",
-                options: ["Present Perfect", "Past Perfect", "Present Perfect Continuous", "Past Continuous"],
-                correct: 2
-            }
-        ];
-
-        let currentQuestion = 0;
-        let selectedAnswer = null;
-
-        function loadQuestion() {
-            const quiz = quizData[currentQuestion];
-            document.getElementById('question').textContent = quiz.question;
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.querySelector('.theme-toggle i');
             
-            const options = document.querySelectorAll('.quiz-option');
-            options.forEach((option, index) => {
-                option.textContent = quiz.options[index];
-                option.classList.remove('selected');
-                option.onclick = () => selectOption(index);
-            });
-            
-            document.getElementById('result').style.display = 'none';
-            selectedAnswer = null;
-        }
-
-        function selectOption(index) {
-            document.querySelectorAll('.quiz-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            document.querySelectorAll('.quiz-option')[index].classList.add('selected');
-            selectedAnswer = index;
-        }
-
-        function checkAnswer() {
-            if (selectedAnswer === null) {
-                alert('Please select an answer!');
-                return;
-            }
-
-            const quiz = quizData[currentQuestion];
-            const resultDiv = document.getElementById('result');
-            resultDiv.style.display = 'block';
-
-            if (selectedAnswer === quiz.correct) {
-                resultDiv.textContent = 'Correct! Well done!';
-                resultDiv.className = 'quiz-result correct';
+            if (body.getAttribute('data-theme') === 'light') {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.className = 'fas fa-sun';
             } else {
-                resultDiv.textContent = `Incorrect. The correct answer is: ${quiz.options[quiz.correct]}`;
-                resultDiv.className = 'quiz-result incorrect';
+                body.setAttribute('data-theme', 'light');
+                themeIcon.className = 'fas fa-moon';
             }
-
-            // Load next question after 2 seconds
-            setTimeout(() => {
-                currentQuestion = (currentQuestion + 1) % quizData.length;
-                loadQuestion();
-            }, 2000);
         }
 
-        // Smooth scrolling for navigation links
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Smooth Scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -819,66 +989,290 @@
             });
         });
 
-        // Fade in animation on scroll
-        function animateOnScroll() {
-            const elements = document.querySelectorAll('.fade-in');
-            elements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
-                
-                if (elementTop < window.innerHeight - elementVisible) {
-                    element.classList.add('visible');
-                }
+        // Back to Top Button
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
         }
 
-        window.addEventListener('scroll', animateOnScroll);
-        
-        // Header scroll effect
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.98)';
-                header.style.backdropFilter = 'blur(20px)';
+        // Show/Hide Back to Top Button
+        window.addEventListener('scroll', () => {
+            const backToTopBtn = document.querySelector('.back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('visible');
             } else {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.backdropFilter = 'blur(10px)';
+                backToTopBtn.classList.remove('visible');
             }
         });
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
+        // Intersection Observer for Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animation elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right, .zoom-in');
+            animatedElements.forEach(el => observer.observe(el));
+        });
+
+        // Quiz Functionality
+        const quizData = [
+            {
+                question: "Who wrote the famous novel 'Pride and Prejudice'?",
+                answers: ["Charlotte Brontë", "Jane Austen", "Emily Dickinson", "Virginia Woolf"],
+                correct: 1
+            },
+            {
+                question: "What is the main theme of Shakespeare's 'Hamlet'?",
+                answers: ["Love and Romance", "Revenge and Madness", "Nature and Beauty", "Friendship and Loyalty"],
+                correct: 1
+            },
+            {
+                question: "Which literary device involves giving human characteristics to non-human things?",
+                answers: ["Metaphor", "Simile", "Personification", "Alliteration"],
+                correct: 2
+            },
+            {
+                question: "What is the correct past tense of the verb 'to lie' (meaning to recline)?",
+                answers: ["Lied", "Lay", "Lain", "Lying"],
+                correct: 1
+            },
+            {
+                question: "Who is the author of '1984'?",
+                answers: ["Aldous Huxley", "Ray Bradbury", "George Orwell", "H.G. Wells"],
+                correct: 2
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let selectedAnswer = null;
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            selectedAnswer = null;
+            document.getElementById('quiz-result').classList.remove('show');
             loadQuestion();
-            animateOnScroll();
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIndex >= quizData.length) {
+                showResults();
+                return;
+            }
+
+            const question = quizData[currentQuestionIndex];
+            document.getElementById('question-text').textContent = question.question;
+            
+            const answersContainer = document.getElementById('answers-container');
+            answersContainer.style.display = 'grid';
+            answersContainer.innerHTML = '';
+
+            question.answers.forEach((answer, index) => {
+                const answerElement = document.createElement('div');
+                answerElement.className = 'answer';
+                answerElement.textContent = answer;
+                answerElement.onclick = () => selectAnswer(index);
+                answersContainer.appendChild(answerElement);
+            });
+
+            const quizBtn = document.getElementById('quiz-btn');
+            quizBtn.textContent = 'Next Question';
+            quizBtn.onclick = nextQuestion;
+            quizBtn.disabled = true;
+
+            updateProgressBar();
+        }
+
+        function selectAnswer(index) {
+            const answers = document.querySelectorAll('.answer');
+            answers.forEach((answer, i) => {
+                answer.classList.remove('selected');
+                if (i === index) {
+                    answer.classList.add('selected');
+                }
+            });
+            selectedAnswer = index;
+            document.getElementById('quiz-btn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (selectedAnswer === null) return;
+
+            const question = quizData[currentQuestionIndex];
+            const answers = document.querySelectorAll('.answer');
+            
+            // Show correct/incorrect answers
+            answers.forEach((answer, index) => {
+                if (index === question.correct) {
+                    answer.classList.add('correct');
+                } else if (index === selectedAnswer && index !== question.correct) {
+                    answer.classList.add('incorrect');
+                }
+            });
+
+            if (selectedAnswer === question.correct) {
+                score++;
+                createConfetti();
+            }
+
+            setTimeout(() => {
+                currentQuestionIndex++;
+                selectedAnswer = null;
+                
+                if (currentQuestionIndex < quizData.length) {
+                    loadQuestion();
+                } else {
+                    showResults();
+                }
+            }, 2000);
+
+            document.getElementById('quiz-btn').disabled = true;
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentQuestionIndex + 1) / quizData.length) * 100;
+            document.querySelector('.quiz-progress-bar').style.width = progress + '%';
+        }
+
+        function showResults() {
+            const percentage = Math.round((score / quizData.length) * 100);
+            const resultContainer = document.getElementById('quiz-result');
+            
+            let resultMessage = '';
+            let resultClass = '';
+            
+            if (percentage >= 80) {
+                resultMessage = 'Excellent! You have a strong grasp of English literature and language.';
+                resultClass = 'success';
+                createConfetti();
+            } else if (percentage >= 60) {
+                resultMessage = 'Good job! You have a solid understanding with room for improvement.';
+                resultClass = 'warning';
+            } else {
+                resultMessage = 'Keep studying! There\'s always room to grow in your literary journey.';
+                resultClass = 'error';
+            }
+            
+            resultContainer.innerHTML = `
+                <div style="background: var(--card-color); border: 2px solid var(--${resultClass === 'success' ? 'success' : resultClass === 'warning' ? 'warning' : 'error'}); color: var(--text-color);">
+                    <h3>Quiz Complete!</h3>
+                    <p style="font-size: 2rem; margin: 1rem 0; color: var(--${resultClass === 'success' ? 'success' : resultClass === 'warning' ? 'warning' : 'error'});">${score}/${quizData.length} (${percentage}%)</p>
+                    <p>${resultMessage}</p>
+                    <button class="quiz-btn" onclick="startQuiz()" style="margin-top: 1rem;">Retake Quiz</button>
+                </div>
+            `;
+            
+            resultContainer.classList.add('show');
+            
+            // Hide question and answers
+            document.getElementById('answers-container').style.display = 'none';
+            document.getElementById('question-text').style.display = 'none';
+            document.getElementById('quiz-btn').style.display = 'none';
+        }
+
+        // Confetti Animation
+        function createConfetti() {
+            const confettiContainer = document.getElementById('confetti');
+            const colors = ['#667eea', '#764ba2', '#f093fb', '#10b981', '#f59e0b'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confettiPiece = document.createElement('div');
+                confettiPiece.className = 'confetti-piece';
+                confettiPiece.style.left = Math.random() * 100 + '%';
+                confettiPiece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confettiPiece.style.animationDelay = Math.random() * 2 + 's';
+                confettiPiece.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                
+                confettiContainer.appendChild(confettiPiece);
+                
+                setTimeout(() => {
+                    confettiPiece.remove();
+                }, 5000);
+            }
+        }
+
+        // Parallax Effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxBg = document.querySelector('.parallax-bg');
+            if (parallaxBg) {
+                const speed = scrolled * 0.5;
+                parallaxBg.style.transform = `translateY(${speed}px)`;
+            }
         });
 
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = document.body.getAttribute('data-theme') === 'dark' 
+                    ? 'rgba(15, 23, 42, 0.98)' 
+                    : 'rgba(255, 255, 255, 0.98)';
+                nav.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                nav.style.background = document.body.getAttribute('data-theme') === 'dark' 
+                    ? 'rgba(15, 23, 42, 0.95)' 
+                    : 'rgba(255, 255, 255, 0.95)';
+                nav.style.boxShadow = 'none';
+            }
         });
 
-        // Topic item hover effects with random colors
-        document.querySelectorAll('.topic-item').forEach(item => {
-            const colors = [
-                'linear-gradient(45deg, #667eea, #764ba2)',
-                'linear-gradient(45deg, #f093fb, #f5576c)',
-                'linear-gradient(45deg, #4facfe, #00f2fe)',
-                'linear-gradient(45deg, #43e97b, #38f9d7)',
-                'linear-gradient(45deg, #fa709a, #fee140)',
-                'linear-gradient(45deg, #a8edea, #fed6e3)'
-            ];
+        // Enhanced mobile menu closing
+        document.addEventListener('click', (e) => {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
             
-            const originalGradient = item.style.background || 'linear-gradient(45deg, #667eea, #764ba2)';
-            
-            item.addEventListener('mouseenter', () => {
-                const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                item.style.background = randomColor;
-            });
-            
-            item.addEventListener('mouseleave', () => {
-                item.style.background = originalGradient;
-            });
+            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // Keyboard navigation for quiz
+        document.addEventListener('keydown', (e) => {
+            if (document.querySelector('.quiz-container')) {
+                if (e.key >= '1' && e.key <= '4') {
+                    const index = parseInt(e.key) - 1;
+                    const answers = document.querySelectorAll('.answer');
+                    if (answers[index]) {
+                        selectAnswer(index);
+                    }
+                } else if (e.key === 'Enter') {
+                    const quizBtn = document.getElementById('quiz-btn');
+                    if (!quizBtn.disabled) {
+                        quizBtn.click();
+                    }
+                }
+            }
+        });
+
+        // Initialize theme based on system preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            toggleTheme();
+        }
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (e.matches) {
+                document.body.setAttribute('data-theme', 'dark');
+                document.querySelector('.theme-toggle i').className = 'fas fa-sun';
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+                document.querySelector('.theme-toggle i').className = 'fas fa-moon';
+            }
         });
     </script>
 </body>
